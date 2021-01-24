@@ -8,11 +8,13 @@ Sidekiq.configure_server do |config|
 end
 class OurWorker
 	include Sidekiq::Worker
-	
+	sidekiq_options retry: 0
+
 	def perform(complexity)
 		case complexity
 		when 'super_hard'
-			sleep 20
+			puts 'Charging credit card...'
+			raise "Woops! stuff got bad"
 			puts 'Really took quite a bit of effort'
 		when 'hard'
 			sleep 10
